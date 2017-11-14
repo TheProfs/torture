@@ -1,0 +1,35 @@
+{
+  "name": "torture",
+  "version": "0.1.0",
+  "description": "Stress testing instrumentation for streaming REST/ endpoints",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheProfs/torture.git"
+  },
+  "keywords": [
+    "volga",
+    "permaURL",
+    "bitpaper"
+  ],
+  "author": "@TheProfs",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TheProfs/torture/issues"
+  },
+  "homepage": "https://github.com/TheProfs/torture#readme",
+  "devDependencies": {
+    "request": "^2.83.0",
+    "socket.io-client": "^2.0.3"
+  },
+  "dependencies": {
+    "cors": "^2.8.4",
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "socket.io": "^2.0.3"
+  }
+}
