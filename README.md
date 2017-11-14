@@ -30,9 +30,14 @@ $ npm start
 Open your browser at: http://localhost:3001, enter your URL and the number
 of concurrent request you want to fire.
 
+## Tests
+
+This was built as throwaway code. Hence no tests.
+
 ## Authors
 
 - [The Profs][3]
+
 
 ## License
 

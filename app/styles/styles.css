@@ -1,0 +1,54 @@
+body {
+  font-family: sans-serif;
+  color: #666;
+}
+
+.control-panel {
+  width: 100%;
+  padding: 1em;
+  background: white;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+input {
+  display: block;
+  width: 100%;
+}
+
+.status-container {
+  width: 100%;
+  font-size: 12px;
+  margin: 1em;
+}
+
+.status-container-inner {
+  position: relative;
+  height: 160px;
+  overflow-y: scroll;
+}
+
+.status-container p {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5em;
+}
+
+.success {
+  color: #8BC34A;
+}
+
+.info {
+  color: #3F51B5;
+}
+
+.warning {
+  color: #FF9800;
+}
+
+.error {
+  color: #F44336;
+}
+
+em {
+  font-size: 10px;
+  color: #999;
+}

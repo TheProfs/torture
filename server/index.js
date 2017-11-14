@@ -4,16 +4,15 @@ const path = require('path')
 const express = require('express')
 const app = express()
 const server = require('http').createServer(app)
-const async = require('async')
-const request = require('request')
-const argv = require('nomnom').parse()
 const cors = require('cors')
 const io = require('socket.io')(server, {
   pingInterval: 10000,
   pingTimeout: 30000
 })
+const ConcRequest = require('./conc-request')
+const concRequest = new ConcRequest()
 
-io.set('transports', ['websocket']);
+io.set('transports', ['websocket'])
 app.use('/', express.static(path.join(__dirname, '../app')))
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
@@ -26,55 +25,51 @@ app.use(cors({
   ]
 }))
 
-let subscribers = []
-
 app.get('/', (req, res) => {
   res.render(path.join(__dirname, '../index.html'))
 })
 
 app.get('/start', (req, res) => {
-  async.timesLimit(
-    parseInt(req.query.concrequests),
-    parseInt(req.query.concrequests),
-    (n, next) => {
-
-    let count = 0
-    request({ method: 'GET', uri: req.query.url }, (error, response, body) => {
-        if (error) {
-          next(error)
-          return
-        }
-
-        next()
-      }
-    )
-    .on('data', data => {
-      if (++count % 100 === 0) {
-        subscribers.forEach(socket => {
-          socket.emit('data', { request: n, count })
-        })
-      }
+  try {
+    concRequest.start({
+      url: req.query.url,
+      concrequests: parseInt(req.query.concrequests)
     })
-  }, err => {
-    if (err) {
-      console.error(err)
-      return
-    }
+    res.sendStatus(204)
+  } catch(err) {
+    console.error(err)
+    res.status(500).send(err.toString())
+  }
+})
 
-    console.info('Done')
-  });
+app.get('/abort', (req, res) => {
+  try {
+    concRequest.abortRunningRequests()
+    res.sendStatus(204)
+  } catch(err) {
+    console.error(err)
+    res.status(500).send(err.toString())
+  }
+})
 
-  res.sendStatus(204)
+app.get('/reset', (req, res) => {
+  try {
+    concRequest.reset()
+    res.sendStatus(204)
+  } catch(err) {
+    console.error(err)
+    res.status(500).send(err.toString())
+  }
 })
 
 io.on('connection', socket => {
-  subscribers.push(socket)
+  concRequest.addSubscriber(socket)
 
   socket.on('disconnect', () => {
-    subscribers = subscribers.filter(subscriber => subscriber.id !== socket.id)
+    concRequest.removeSubscriber(socket)
   })
 })
 
-server.listen(app.get('port'), function () {
-  console.log(`Torture app listening on: ${app.get('port')}`)
+server.listen(app.get('port'), () => {
+  console.info(`Torture app listening on: ${app.get('port')}`)
 })

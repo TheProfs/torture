@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+    <title>Torture</title>
+    <link href="/favicon.ico" rel="icon" type="image/x-icon"/>
+    <link href="styles/grid.css" rel="stylesheet" type="text/css"></link>
+    <link href="styles/styles.css" rel="stylesheet" type="text/css"></link>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.slim.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.3/Chart.min.js"></script>
+  </head>
+
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-8">
+          <canvas id="chart-canvas" width="400" height="200"></canvas>
+        </div>
+        <div class="col-sm-4">
+          <div class="control-panel">
+            <p>Endpoint:</p>
+            <input
+              id="url-input"
+              type="text"
+              name="url"
+              value="https://experiments.bitpaper.io/paper/test-1">
+            <p>Max concurrent requests:</p>
+            <input
+              id="conc-requests-input"
+              type="number"
+              min="1"
+              max="500"
+              value="5"
+              name="concurrentrequests">
+            <br>
+            <button onclick="requestStart()"> Start Test </button>
+            <button onclick="requestAbort()"> Abort running requests </button>
+            <button onclick="requestReset()"> Reset </button>
+            <div id="status-container" class="status-container">
+              <div id="status-container-inner" class="status-container-inner"></div>
+            </div>
+
+            <br>
+            <em>
+              * Data updates are throttled and do not
+              reflect the actual download speed
+            </em>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script src="scripts/scripts.js"></script>
+</html>
