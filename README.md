@@ -5,6 +5,8 @@ Visualise *concurrent* requests to a particular URL.
 Made as [stress testing][1] instrumentation for [Bitpaper's][2] Event Sourcing
 architecture but you can use it with any URL.
 
+![Screenshot of Torture tool in action](https://i.imgur.com/WgFKGYd.png)
+
 ## Why?
 
 To effectively stress test network requests you need to do so via
