@@ -4,7 +4,7 @@
   "description": "Stress testing instrumentation for streaming REST/ endpoints",
   "main": "server/index.js",
   "scripts": {
-    "start": "node server/index.js",
+    "start": "node --max_old_space_size=28000 server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
