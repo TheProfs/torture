@@ -68,7 +68,7 @@ class ConcRequest {
 
       if (err) {
         this._notifySubscribers('status', {
-          type: 'success',
+          type: 'error',
           text: `An error occured: ${err.toString()}`
         })
 
